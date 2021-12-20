@@ -75,6 +75,7 @@ void GcodeSuite::M24() {
   #endif
 
   if (card.isFileOpen()) {
+    // PITTA
     #if HAS_PITTA_MMU
     if (!print_job_timer.isPaused())
     {

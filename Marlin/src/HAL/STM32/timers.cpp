@@ -48,6 +48,7 @@
 #ifndef TEMP_TIMER_IRQ_PRIO
   #define TEMP_TIMER_IRQ_PRIO TEMP_TIMER_IRQ_PRIO_DEFAULT
 #endif
+// PITTA
 #if HAS_PITTA_MMU
   #ifndef PITTA_TIMER_IRQ_PRIO
     #define PITTA_TIMER_IRQ_PRIO PITTA_TIMER_IRQ_PRIO_DEFAULT
@@ -93,6 +94,7 @@
 #elif defined(STM32F4xx) || defined(STM32F7xx) || defined(STM32H7xx)
   #define MCU_STEP_TIMER  6           // STM32F401 has no TIM6, TIM7, or TIM8
   #define MCU_TEMP_TIMER 14           // TIM7 is consumed by Software Serial if used.
+  // PITTA
   #if HAS_PITTA_MMU
     #define MCU_PITTA_TIMER  13
   #endif
@@ -121,6 +123,7 @@
 #define _TIMER_DEV(X) __TIMER_DEV(X)
 #define STEP_TIMER_DEV _TIMER_DEV(STEP_TIMER)
 #define TEMP_TIMER_DEV _TIMER_DEV(TEMP_TIMER)
+// PITTA
 #if HAS_PITTA_MMU
   #define PITTA_TIMER_DEV _TIMER_DEV(PITTA_TIMER)
 #endif

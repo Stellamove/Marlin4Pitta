@@ -1003,11 +1003,11 @@ void tool_change(const uint8_t new_tool, bool no_move/*=false*/) {
 
     mmu2.tool_change(new_tool);
 
+  // PITTA
   #elif HAS_PITTA_MMU
 
     UNUSED(no_move);
 
-    // PITTA
     pitta.fila_change(new_tool);
 
   #elif EXTRUDERS == 0

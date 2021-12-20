@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2021 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -19,24 +19,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-
-#include "../../inc/MarlinConfig.h"
-
-#if ENABLED(SDSUPPORT)
-
-#include "../gcode.h"
-#include "../../sd/cardreader.h"
+#pragma once
 
 /**
- * M21: Init SD Card
+ * CREALITY v4.2.3 (STM32F103) board pin assignments
  */
-void GcodeSuite::M21() { card.mount(); }
 
-/**
- * M22: Release SD Card
- */
-void GcodeSuite::M22() {
-  if (!IS_SD_PRINTING()) card.release();
-}
+#define BOARD_INFO_NAME      "Creality v4.2.3"
+#define DEFAULT_MACHINE_NAME "Creality3D"
 
-#endif // SDSUPPORT
+//
+// Heaters
+//
+#define HEATER_BED_PIN                      PB10  // HOT BED
+
+#include "pins_CREALITY_V4.h"
+
+//
+// Encoder
+//
+#if BTN_EN1 == PB10
+  #undef BTN_EN1
+  #define BTN_EN1                           PA2   // Rotary Encoder
+#endif

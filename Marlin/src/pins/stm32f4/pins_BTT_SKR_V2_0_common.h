@@ -468,7 +468,7 @@
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
-    // STELLAMOVE
+    // PITTA
     #define LCD_PINS_RS              EXP1_07_PIN // EXP1_04_PIN
 
     #define BTN_EN1                  EXP2_08_PIN // EXP1_08_PIN
@@ -529,7 +529,7 @@
 
 #endif // HAS_WIRED_LCD
 
-// STELLAMOVE
+// PITTA
 #if EITHER(HAS_DWIN_E3V2, IS_DWIN_MARLINUI)
   #define BTN_ENC                           EXP1_09_PIN
   #define BTN_EN1                           EXP2_08_PIN
@@ -541,7 +541,7 @@
 #endif
 
 // Alter timing for graphical display
-// STELLAMOVE
+// PITTA
 #if IS_U8GLIB_ST7920
   #ifndef BOARD_ST7920_DELAY_1
     #define BOARD_ST7920_DELAY_1             125 // 120

@@ -59,6 +59,7 @@ extern const char M23_STR[], M24_STR[];
   #include "Sd2Card.h"
 #endif
 
+// PITTA
 #if HAS_PITTA_MMU
   #include "../feature/pitta/pitta.h"
 #endif
@@ -167,9 +168,10 @@ public:
   static void endFilePrintNow(TERN_(SD_RESORT, const bool re_sort=false));
   static void abortFilePrintNow(TERN_(SD_RESORT, const bool re_sort=false));
   static void fileHasFinished();
+  // PITTA
   static inline void abortFilePrintSoon() {
     #ifdef HAS_PITTA_MMU
-      pitta.pitta_stop_req = true;
+      pitta.pitta_stop_req = isFileOpen(); // true;
     #endif
     flag.abort_sd_printing = isFileOpen();
   }

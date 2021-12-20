@@ -71,6 +71,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
+// PITTA
 #define STRING_CONFIG_H_AUTHOR "(PITTA, Ender-3)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
@@ -560,7 +561,7 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP   5
+#define HEATER_0_MINTEMP   0
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
 #define HEATER_3_MINTEMP   5
@@ -568,7 +569,7 @@
 #define HEATER_5_MINTEMP   5
 #define HEATER_6_MINTEMP   5
 #define HEATER_7_MINTEMP   5
-#define BED_MINTEMP        5
+#define BED_MINTEMP        0
 #define CHAMBER_MINTEMP    5
 
 // Above this temperature the heater will be switched off.
@@ -607,7 +608,6 @@
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-  // STELLAMOVE
   //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
   //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
@@ -644,7 +644,6 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-// STELLAMOVE
 #define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
@@ -738,7 +737,6 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-// STELLAMOVE
 #define EXTRUDE_MAXLENGTH 1000
 
 //===========================================================================
@@ -759,7 +757,7 @@
  */
 // PITTA
 #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
-//#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
+#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
 //#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 //#define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
 
@@ -851,7 +849,6 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-// PITTA
 #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -908,7 +905,7 @@
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
 // PITTA
 #if MMU_MODEL == PITTA_MMU
-//#define ENDSTOP_INTERRUPTS_FEATURE
+#define ENDSTOP_INTERRUPTS_FEATURE
 #else
 #define ENDSTOP_INTERRUPTS_FEATURE
 #endif
@@ -962,6 +959,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
+// PITTA
 #define DEFAULT_MAX_FEEDRATE          { 500, 500, 10, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
@@ -975,6 +973,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
+// PITTA
 #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 2500 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
@@ -1060,7 +1059,7 @@
  */
 // PITTA
 #if MMU_MODEL == PITTA_MMU
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 #else
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 #endif
@@ -1097,7 +1096,6 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-// PITTA
 //#define PROBE_MANUALLY
 
 /**
@@ -1121,7 +1119,6 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-// STELLAMOVE
 //#define BLTOUCH
 
 /**
@@ -1214,10 +1211,8 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-// STELLAMOVE
 #define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
 
-// STELLAMOVE
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 10
@@ -1225,7 +1220,6 @@
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (50*60)
 
-// STELLAMOVE
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_FEEDRATE_FAST (4*60)
 
@@ -1277,7 +1271,6 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-// STELLAMOVE
 //#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
@@ -1303,7 +1296,6 @@
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-// STELLAMOVE
 #define Z_PROBE_OFFSET_RANGE_MIN -10
 #define Z_PROBE_OFFSET_RANGE_MAX 10
 
@@ -1323,7 +1315,6 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-// STELLAMOVE
 //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
   //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
@@ -1366,12 +1357,10 @@
 // @section extruder
 
 #define DISABLE_E false             // Disable the extruder when not stepping
-// STELLAMOVE
 #define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
 
 // @section machine
 
-// STELLAMOVE
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
 #define INVERT_Y_DIR false
@@ -1429,7 +1418,6 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-// STELLAMOVE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 250
 //#define I_MIN_POS 0
@@ -1450,7 +1438,6 @@
 
 // Min software endstops constrain movement within minimum coordinate bounds
 #define MIN_SOFTWARE_ENDSTOPS
-// STELLAMOVE
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
@@ -1588,7 +1575,6 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-// PITTA
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
@@ -1600,7 +1586,6 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-// STELLAMOVE
 //#define RESTORE_LEVELING_AFTER_G28
 //#define ENABLE_LEVELING_AFTER_G28
 
@@ -1723,7 +1708,6 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-// PITTA
 //#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
@@ -1733,7 +1717,6 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-// PITTA
 //#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
@@ -1803,7 +1786,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (8*60) }
+#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1913,6 +1896,7 @@
 //
 // Preheat Constants - Up to 5 are supported without changes
 //
+// PITTA
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 195
 #define PREHEAT_1_TEMP_BED     55
@@ -1946,7 +1930,6 @@
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
   #define NOZZLE_PARK_XY_FEEDRATE 100   // (mm/s) X and Y axes feedrate (also used for delta Z axis)
   #define NOZZLE_PARK_Z_FEEDRATE    5   // (mm/s) Z axis feedrate (not used for delta printers)
-  //#define NOZZLE_PARK_ON_TEMP_ERROR   // Park Nozzle before Halt on temperature error
 #endif
 
 /**
@@ -2846,6 +2829,7 @@
 //
 // Ender-3 v2 OEM display. A DWIN display with Rotary Encoder.
 //
+// PITTA
 //#define DWIN_CREALITY_LCD           // Creality UI
 #define DWIN_CREALITY_LCD_ENHANCED    // Enhanced UI
 //#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers

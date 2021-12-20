@@ -41,6 +41,59 @@ PITTA pitta;
 #define MODEL_E3V2
 // #define MODEL_E3PRO
 
+
+
+
+
+
+#define PITTA_CMD_TIMEOUT 45000UL // Timeout for command
+#define PITTA_FS_TIMEOUT 5000UL   // Timeout for filament sensor command
+
+#define PITTA_CMD_NONE 0
+#define PITTA_CMD_T0 0x10 // Tool Index
+#define PITTA_CMD_T1 0x11 // Tool Index
+#define PITTA_CMD_T2 0x12 // Tool Index
+#define PITTA_CMD_T3 0x13 // Tool Index
+#define PITTA_CMD_T4 0x14 // Tool Index
+#define PITTA_CMD_T5 0x15 // Tool Index
+#define PITTA_CMD_T6 0x16 // Tool Index
+#define PITTA_CMD_T7 0x17 // Tool Index
+#define PITTA_CMD_L0 0x20 // Load Filament
+#define PITTA_CMD_L1 0x21 // Load Filament
+#define PITTA_CMD_L2 0x22 // Load Filament
+#define PITTA_CMD_L3 0x23 // Load Filament
+#define PITTA_CMD_L4 0x24 // Load Filament
+#define PITTA_CMD_L5 0x25 // Load Filament
+#define PITTA_CMD_L6 0x26 // Load Filament
+#define PITTA_CMD_L7 0x27 // Load Filament
+#define PITTA_CMD_C 0x30  // Change Tool
+#define PITTA_CMD_R 0x40  // Retract Filament
+#define PITTA_CMD_E 0x50  // Extrude Filament
+
+#define PITTA_SND_V 0x60 // Read Version
+#define PITTA_SND_F 0x70 // Read Filament Sensor
+
+#define PITTA_NO_TOOL 99
+
+// #define mExtruder_dir(dir) WRITE(E0_DIR_PIN, dir)
+#define mExtruder_step(state) E0_STEP_WRITE(state)
+
+#define EXT_SLOW_LOAD 1800//1800 //1400
+#define ABS_MOT_TRIGGER_CNT_DUTY 20000*CLK_MOD//300*CLK_MOD   //500 //30000
+#define ABS_COMM_MASTER_CNT_DUTY 15000*CLK_MOD  //30000
+#define ABS_COMM_RECEIVE_CNT_DUTY 3500*CLK_MOD  //5000 //10000
+#define ABS_COMM_SEND_CNT_DUTY 5000*CLK_MOD     //10000
+#define MATERIAL_OFFSET_BASE 38000      //82500
+
+
+
+
+
+
+
+
+
+
 #ifdef MODEL_E3PRO
 
 #define SPREAD_DIR LOW
@@ -194,8 +247,8 @@ void pitta_enable_e0() {
 #define INV_DIR LOW
 
 #define MUL_V 1 //8
-#define EXT_CM_M 1000
-#define EXT_MM_M 100
+#define EXT_CM_M 1000//1020
+#define EXT_MM_M 100//102
 #define WAIT_MUL_V 1 //4
 #define CLK_MOD 0.1//0.1 //2
 #define REF_CLK_BASE 5000
@@ -334,67 +387,23 @@ void pitta_enable_e0() {
   ENABLE_AXIS_E0();
 }
 
-// #define mExtruder_dir(dir) WRITE(E0_DIR_PIN, dir)
+#endif
 
 bool cur_ext_dir = false;
 void mExtruder_dir(bool dir) {
   if (cur_ext_dir!=dir) {
     cur_ext_dir = dir;
+    mExtruder_step(LOW);
+    delay(10);
     WRITE(E0_DIR_PIN, dir);
-    delay(5);
+    delay(15);
   }
 }
-#endif
 
 
 
 
-
-#define PITTA_CMD_TIMEOUT 45000UL // Timeout for command
-#define PITTA_FS_TIMEOUT 5000UL   // Timeout for filament sensor command
-
-#define PITTA_CMD_NONE 0
-#define PITTA_CMD_T0 0x10 // Tool Index
-#define PITTA_CMD_T1 0x11 // Tool Index
-#define PITTA_CMD_T2 0x12 // Tool Index
-#define PITTA_CMD_T3 0x13 // Tool Index
-#define PITTA_CMD_T4 0x14 // Tool Index
-#define PITTA_CMD_T5 0x15 // Tool Index
-#define PITTA_CMD_T6 0x16 // Tool Index
-#define PITTA_CMD_T7 0x17 // Tool Index
-#define PITTA_CMD_L0 0x20 // Load Filament
-#define PITTA_CMD_L1 0x21 // Load Filament
-#define PITTA_CMD_L2 0x22 // Load Filament
-#define PITTA_CMD_L3 0x23 // Load Filament
-#define PITTA_CMD_L4 0x24 // Load Filament
-#define PITTA_CMD_L5 0x25 // Load Filament
-#define PITTA_CMD_L6 0x26 // Load Filament
-#define PITTA_CMD_L7 0x27 // Load Filament
-#define PITTA_CMD_C 0x30  // Change Tool
-#define PITTA_CMD_R 0x40  // Retract Filament
-#define PITTA_CMD_E 0x50  // Extrude Filament
-
-#define PITTA_SND_V 0x60 // Read Version
-#define PITTA_SND_F 0x70 // Read Filament Sensor
-
-#define PITTA_NO_TOOL 99
-
-// #define mExtruder_dir(dir) WRITE(E0_DIR_PIN, dir)
-#define mExtruder_step(state) E0_STEP_WRITE(state)
-
-#define EXT_SLOW_LOAD 1800//1800 //1400
-
-
-#define ABS_MOT_TRIGGER_CNT_DUTY 20000*CLK_MOD//300*CLK_MOD   //500 //30000
-#define ABS_COMM_MASTER_CNT_DUTY 15000*CLK_MOD  //30000
-#define ABS_COMM_RECEIVE_CNT_DUTY 3500*CLK_MOD  //5000 //10000
-#define ABS_COMM_SEND_CNT_DUTY 5000*CLK_MOD     //10000
-#define MATERIAL_OFFSET_BASE 38000      //82500
-
-
-
-
-long int mot_ext_remain_step = 0, init_mot_ext_remain_step = 0;
+long int mot_ext_remain_step = 0, init_mot_ext_remain_step = 0, feed_fast_cnt = 0;
 int ext_load_damp = EXT_SLOW_LOAD;
 unsigned int i_ABS_MOT_TRIGGER_CNT_DUTY = ABS_MOT_TRIGGER_CNT_DUTY;
 long int change_talk_expire_cnt = 0;
@@ -453,7 +462,7 @@ bool io_chk_n_set_as_output (int pin) {
 #define DAMP_TREMBLE 60*MUL_V  //80 //60//100
 unsigned int temp_expipre_accum_cnt = 0;
 
-/* void ext_flat(bool dir, unsigned int spd, long int last_cnt) {
+void ext_flat(bool dir, unsigned int spd, long int last_cnt) {
   mExtruder_dir(dir);
   pitta_wtcdog_reset();
   if (last_cnt<0) return;
@@ -463,13 +472,51 @@ unsigned int temp_expipre_accum_cnt = 0;
     mExtruder_step(HIGH);
     delayMicroseconds(spd + 1);
     mExtruder_step(LOW);
-    delayMicroseconds(spd);      
+    delayMicroseconds(spd);   
+
+    temp_expipre_accum_cnt = temp_expipre_accum_cnt + (spd>>3) + 1;
+    if (temp_expipre_accum_cnt>4000) {
+      temp_expipre_accum_cnt = temp_expipre_accum_cnt - 4000;
+      pitta_req_manage_heater_update();
+    }       
   }  
-} */
+} 
+
+#define STAY_DUTY 60
+void ext_ramp_acc(bool dir, unsigned int st_spd, unsigned int ed_spd, long int last_cnt) {
+  int spd = 0, delta = 0, time_dist, add_cnt = 0;
+  mExtruder_dir(dir);
+  pitta_wtcdog_reset();
+  if (last_cnt<0) return;
+  last_cnt = (last_cnt >> 1)*MUL_V;
+  spd = st_spd;
+
+  while (last_cnt > 0) {
+    if (spd>ed_spd) {
+      spd = spd - spd/20;
+    }
+    else if (spd<ed_spd) {
+      spd = spd + spd/20;
+    }
+    last_cnt--;
+    mExtruder_step(HIGH);
+    delayMicroseconds(spd + 1);
+    mExtruder_step(LOW);
+    delayMicroseconds(spd);   
+
+    temp_expipre_accum_cnt = temp_expipre_accum_cnt + (spd>>3) + 1;
+    if (temp_expipre_accum_cnt>4000) {
+      temp_expipre_accum_cnt = temp_expipre_accum_cnt - 4000;
+      pitta_req_manage_heater_update();
+    }       
+  }  
+} 
 
 void snap_ext_damp(bool dir, unsigned int spd, long int last_cnt)
 {
+  ext_flat(dir, spd, last_cnt);
   if (last_cnt<0) return;
+  return;
   last_cnt = (last_cnt >> 1)*MUL_V;
   spd = spd/MUL_V;
   mExtruder_dir(dir);
@@ -659,19 +706,52 @@ void ext_snap()
   
 
   pitta_req_manage_heater_update();  
-  for (int i = 0;i< pitta_val_3/* pitta_extrude_turn_B_val */;i++) {
-    snap_ext_damp(INV_DIR, 800, 100);
-    snap_ext_damp(INV_DIR, 90, 10);
-    snap_ext_damp(INV_DIR, 70, 15);
-    snap_ext_damp(INV_DIR, 60, 15);
-    snap_ext_damp(INV_DIR, 50, 250);
-    snap_ext_damp(INV_DIR, 90, 10);
-  }
-  snap_ext_damp(NOM_DIR, 3000, 470);
-  snap_ext_damp(NOM_DIR, 150, 30);
-  snap_ext_damp(NOM_DIR, 100, pitta_val_3*400 - 1000);//30
 
-  snap_ext_damp(NOM_DIR, 1000, 500 + 50*pitta_val_6);//10
+  snap_ext_damp(INV_DIR, 200, 100);
+  snap_ext_damp(INV_DIR, 150, 500);
+  snap_ext_damp(INV_DIR, 110, 50);
+  snap_ext_damp(INV_DIR, 70, 50);
+  snap_ext_damp(INV_DIR, 50, 1400);
+  snap_ext_damp(INV_DIR, 80, 100);
+  snap_ext_damp(INV_DIR, 100, 50);
+  snap_ext_damp(INV_DIR, 150, 50);
+  snap_ext_damp(INV_DIR, 2500, 200);
+  
+  snap_ext_damp(INV_DIR, 110, 50);
+  snap_ext_damp(INV_DIR, 70, 50);
+  snap_ext_damp(INV_DIR, 50, 16000);
+
+  for (int i = 0;i< pitta_val_3/* pitta_extrude_turn_B_val */;i++) {
+   
+    snap_ext_damp(INV_DIR, 100, 1600);    
+    snap_ext_damp(NOM_DIR, 100, 1600);
+  }
+  snap_ext_damp(NOM_DIR, 100, 3000);
+  snap_ext_damp(NOM_DIR, 50, 13000);
+  snap_ext_damp(NOM_DIR, 300, 1500);
+  // snap_ext_damp(NOM_DIR, 550, 500);
+  snap_ext_damp(NOM_DIR, 550, 1000 + pitta_val_6*50);//1000  // 10 
+  // snap_ext_damp(NOM_DIR, 1500, 100);
+  // snap_ext_damp(NOM_DIR, 600, 100);
+
+  for (int i = 0;i< 12/* pitta_extrude_turn_B_val */;i++) {
+   
+    snap_ext_damp(INV_DIR, 80, 350);    
+    snap_ext_damp(NOM_DIR, 90, 350);
+  }
+
+
+ 
+
+
+  // snap_ext_damp(INV_DIR, 100, 6000);
+  // snap_ext_damp(NOM_DIR, 200, 6000);
+  // snap_ext_damp(NOM_DIR, 3000, 400);
+  // snap_ext_damp(NOM_DIR, 700, 800);
+  // snap_ext_damp(NOM_DIR, 400, pitta_val_3*400 - 9000);//1000
+
+  // snap_ext_damp(NOM_DIR, 700, 100*pitta_val_6);//1000
+  // snap_ext_damp(NOM_DIR, 300, 100);//1000
   snap_ext_damp(INV_DIR, 150, 20);
   snap_ext_damp(INV_DIR, 120, 40);
   snap_ext_damp(INV_DIR, 80, 60);
@@ -697,7 +777,7 @@ void ext_snap()
   bool b_retract_more_req = false;
   b_retract_more_req = false;
 
-  while (chk_material() && wait_expire_cnt < 110000) {//130000
+  while (chk_material() && wait_expire_cnt < 80000) {//130000
     b_retract_more_req = true;
     wait_expire_cnt++;
 /*     if (wait_expire_cnt == 60000) {
@@ -811,7 +891,7 @@ void retract_ready()
   chk_cnt = 0;
   SERIAL_ECHOLNPGM("PITTA ready retracting and sensor waiting ");
   b_material_empty = false;
-  while (!b_material_empty && wait_expire_cnt < 180000) {//40000//1800000
+  while (!b_material_empty && wait_expire_cnt < 130000) {//40000//1800000
     if (!chk_material()) {
       chk_cnt++;
       if (chk_cnt>2500) {
@@ -1016,6 +1096,7 @@ void PITTA::send_force_cmd(int cmd)
 bool b_state_proceed = true;
 extern Planner planner;
 bool b_test_com_enabled = false;
+unsigned int ware_expire_cnt = 0;
 
 void PITTA::pitta_act() {
   while (pitta.pitta_sel_req) 
@@ -1180,30 +1261,34 @@ void PITTA::pitta_loop()
   }
 
   static unsigned int ware_wait_cnt = 0;
+  
   if (b_ware_spreading) {
-    if (cur_ext_dir == NOM_DIR) {
-      delay(8);
-      E0_STEP_WRITE(LOW);
-      delay(10);
-      mExtruder_dir(INV_DIR);
-      delay(10);
-    }
-    ware_wait_cnt++;
-    if (ware_wait_cnt > 500) {
-      ware_wait_cnt = 0;
-      static bool b_step = false;
-        b_step = !b_step;
-        // mExtruder_dir(b_mot_dir);
-        if (b_step)
-        {
-          E0_STEP_WRITE(HIGH);
-          jam_expire_cnt++;
-        }
-        else
-        {
-          E0_STEP_WRITE(LOW);
-        }
-        // delay(2);
+    if (ware_expire_cnt<5000) {
+      if (cur_ext_dir == NOM_DIR) {
+        delay(8);
+        E0_STEP_WRITE(LOW);
+        delay(10);
+        mExtruder_dir(INV_DIR);
+        delay(10);
+      }
+      ware_wait_cnt++;
+      if (ware_wait_cnt > 500) {
+        ware_expire_cnt++;
+        ware_wait_cnt = 0;
+        static bool b_step = false;
+          b_step = !b_step;
+          // mExtruder_dir(b_mot_dir);
+          if (b_step)
+          {
+            E0_STEP_WRITE(HIGH);
+            jam_expire_cnt++;
+          }
+          else
+          {
+            E0_STEP_WRITE(LOW);
+          }
+          // delay(2);
+      }
     }
   }
 
@@ -1877,6 +1962,7 @@ void PITTA::parsing() {
       pitta_data_state = PHY_PROCESS;
       b_change_done = true;
       b_rcv_confirm_need = false;
+      feed_fast_cnt = 0;
     }
     else if (received_cmd == MSG_DONE ) {   
       proc_state = PROC_MSG_OK;
@@ -1975,6 +2061,7 @@ void PITTA::physical_processing() {
   
   if (b_ware_spreading) {
     b_ware_spreading = false;
+    ware_expire_cnt = 0;
     delay(3);
     E0_STEP_WRITE(LOW);
     delay(7);
@@ -2053,8 +2140,20 @@ void PITTA::physical_processing() {
         material_offset = (long)pitta_val_1*EXT_CM_M/* pitta_extrude_offset */;
         material_tune_offset = (long)pitta_val_2*EXT_MM_M;
         init_mot_ext_remain_step = mot_ext_remain_step = material_offset + material_tune_offset; // 46, 0 for e3v2
-
-        i_ABS_MOT_TRIGGER_CNT_DUTY = 400;//400
+        if (mat_det_hyst_cnt == 0) {
+          i_ABS_MOT_TRIGGER_CNT_DUTY = 200;//400
+        }
+        else {
+          i_ABS_MOT_TRIGGER_CNT_DUTY = 700;//400
+        }
+        // feed_fast_cnt++;
+        // if (feed_fast_cnt<8000) {
+        //   i_ABS_MOT_TRIGGER_CNT_DUTY = 200;//400
+        // }
+        // else {
+        //   i_ABS_MOT_TRIGGER_CNT_DUTY = 700;//400
+        //   feed_fast_cnt = 8000;
+        // }
       }
       else
       {
@@ -2064,9 +2163,9 @@ void PITTA::physical_processing() {
 #ifdef MODEL_E3V2
         ui.status_printf(0, F("stp e%i & turn %i"), int(jam_expire_cnt), int(change_turn_val));
 #endif           
-        delay(10);
-        mExtruder_dir(b_mot_dir);
-        delay(10);
+        // delay(10);
+        // mExtruder_dir(b_mot_dir);
+        // delay(10);
         int expire_cnt = 0;
         b_y_spread = false;
         
@@ -2094,6 +2193,7 @@ void PITTA::physical_processing() {
           
         }
         pitta_ui_thermal_update(); 
+        delay(1);
         while (mot_ext_remain_step > 0 || b_y_spread)
         {
           lcd_loop_update_cnt++;
@@ -2142,7 +2242,7 @@ void PITTA::physical_processing() {
 
           mot_ext_remain_step-=1;
     
-#define EXT_SLOW_SPD 50//60//100//70
+#define EXT_SLOW_SPD 65//60//100//70
           if (mot_ext_remain_step > init_mot_ext_remain_step - 400*MUL_V)
           {
             if (mot_ext_remain_step == init_mot_ext_remain_step-100*MUL_V) {
@@ -2157,11 +2257,11 @@ void PITTA::physical_processing() {
           else if (mot_ext_remain_step > init_mot_ext_remain_step - 2000*MUL_V)
           {
 
-            delayMicroseconds(85/WAIT_MUL_V);//120
+            delayMicroseconds(90/WAIT_MUL_V);//120
             E0_STEP_WRITE(LOW);
-            delayMicroseconds(85/WAIT_MUL_V);//120
+            delayMicroseconds(90/WAIT_MUL_V);//120
           }          
-          else if (mot_ext_remain_step > 8500*MUL_V)//7000
+          else if (mot_ext_remain_step > 8000*MUL_V)//7000
           {
             {
               delayMicroseconds((EXT_SLOW_SPD /* + pitta_extrude_return_spd */)/MUL_V);  // 35
@@ -2171,26 +2271,26 @@ void PITTA::physical_processing() {
           }
           else if (mot_ext_remain_step > 1400)
           {
-            delayMicroseconds(250/WAIT_MUL_V);//90
+            delayMicroseconds(300/WAIT_MUL_V);//90
             E0_STEP_WRITE(LOW);
             Y_STEP_WRITE(LOW);
-            delayMicroseconds(250/WAIT_MUL_V);
+            delayMicroseconds(300/WAIT_MUL_V);
           }    
 
           /// from 1500        
           else if (mot_ext_remain_step > 1000)
           {
-            delayMicroseconds(1200/WAIT_MUL_V);//120
-            E0_STEP_WRITE(LOW);
-            Y_STEP_WRITE(LOW);
-            delayMicroseconds(1200/WAIT_MUL_V);
-          }          
-          else if (mot_ext_remain_step > 900)
-          {
             delayMicroseconds(1400/WAIT_MUL_V);//120
             E0_STEP_WRITE(LOW);
             Y_STEP_WRITE(LOW);
             delayMicroseconds(1400/WAIT_MUL_V);
+          }          
+          else if (mot_ext_remain_step > 900)
+          {
+            delayMicroseconds(1700/WAIT_MUL_V);//120
+            E0_STEP_WRITE(LOW);
+            Y_STEP_WRITE(LOW);
+            delayMicroseconds(1700/WAIT_MUL_V);
             expire_cnt++;
           }
 
@@ -2213,10 +2313,10 @@ void PITTA::physical_processing() {
               mot_ext_remain_step = 200;
             }
 
-            delayMicroseconds(1500/WAIT_MUL_V);//120
+            delayMicroseconds(1900/WAIT_MUL_V);//120
             E0_STEP_WRITE(LOW);
             Y_STEP_WRITE(LOW);
-            delayMicroseconds(1500/WAIT_MUL_V);
+            delayMicroseconds(1900/WAIT_MUL_V);
             expire_cnt+=5;
           }
           else
@@ -2231,15 +2331,16 @@ void PITTA::physical_processing() {
             } 
             if (mot_ext_remain_step<0) {
               mot_ext_remain_step = 0;
-              delayMicroseconds(250/WAIT_MUL_V);//1000
-              delayMicroseconds(250/WAIT_MUL_V);//1000    
+              delayMicroseconds(450/WAIT_MUL_V);//1000
+              E0_STEP_WRITE(LOW);
+              delayMicroseconds(450/WAIT_MUL_V);//1000    
               expire_cnt++;          
             }
             else {
               {
-                delayMicroseconds(1500/WAIT_MUL_V);//3000
+                delayMicroseconds(1800/WAIT_MUL_V);//3000
                 E0_STEP_WRITE(LOW);
-                delayMicroseconds(1500/WAIT_MUL_V);
+                delayMicroseconds(1800/WAIT_MUL_V);
                 expire_cnt+=6;
               }
             }
