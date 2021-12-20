@@ -35,3 +35,15 @@ Use the bottom Status Bar icons to build or clean.
 3D printer require the firmware.bin file to be copied onto the onboard SD card, and then you must reboot the printer to complete the install. Firmware binary file is located in the ".pio/build/(your target board)/" folder.
 
 ![firmware](https://user-images.githubusercontent.com/96027590/145913563-e3164dec-4648-4d95-b00d-e1b66b650789.jpg)
+
+1. Prepare SD card formated with MBR, FAT32 and 4096 allocation size.
+2. Copy the firmware binary file to the root of the card.
+3. Ensure that the name of the file was not previously used to update the 3D printer.
+4. Turn off the 3D printer, disconnect any USB cable and insert the SD card.
+5. Turn on the 3D printer, the upload firmware process will start automatically.
+6. The LCD will be blank until the upload is finished (about 15 seconds).
+7. If you are uploading from the original firmware or other source, please restore defaults from LCD menu.
+
+## Upload firmware to LCD of Ender-3 V2
+If you have uploaded the firmware of Ender-3 V2, you must also upload the display firmware of the LCD for Ender-3 V2. You will find the instruction to upload and upload the DWIN_SET form [Configurations](https://github.com/Stellamove/Configurations/tree/master/config/examples/Creality/Ender-3%20V2).
+
