@@ -31,6 +31,89 @@ Use the bottom Status Bar icons to build or clean.
 
 ![build](https://user-images.githubusercontent.com/96027590/145912771-bc4068ba-0bb7-4cd6-96e2-744c8dde9246.jpg)
 
+## Description of configuration changes for using Pitta
+### Configuration.h
+EXTRUDERS and SINGLENOZZLE have been changed because Pitta supports 8 colors using a single nozzle.
+```
+// PITTA
+#if MMU_MODEL == PITTA_MMU
+#define EXTRUDERS 8
+#else
+#define EXTRUDERS 1
+#endif
+```
+
+```
+// PITTA
+#if MMU_MODEL == PITTA_MMU
+#define SINGLENOZZLE
+#else
+//#define SINGLENOZZLE
+#endif
+```
+
+Changed MMU_MODEL for pitta.
+```
+// PITTA
+#define MMU_MODEL PITTA_MMU
+```
+
+Ender-3 V2 LCD DWIN_SET has been changed.
+```
+// PITTA
+//#define DWIN_CREALITY_LCD           // Creality UI
+#define DWIN_CREALITY_LCD_ENHANCED    // Enhanced UI
+//#define DWIN_CREALITY_LCD_JYERSUI   // Jyers UI by Jacob Myers
+//#define DWIN_MARLINUI_PORTRAIT      // MarlinUI (portrait orientation)
+//#define DWIN_MARLINUI_LANDSCAPE     // MarlinUI (landscape orientation)
+```
+
+### Configuration_adv.h
+Extruder thermal protection has been changed because filament replacement requires more time.
+```
+// PITTA
+#define THERMAL_PROTECTION_PERIOD 60        // Seconds
+#define THERMAL_PROTECTION_HYSTERESIS 10    // Degrees Celsius
+```
+
+### platformio.ini
+Changed default_envs, default_src_filter for Ender-3 V2 with Pitta.
+```
+default_envs = STM32F103RET6_creality
+```
+
+```
+default_src_filter = 
+        :
+-<src/feature/pitta/pitta.cpp>
+```
+
+### features.ini
+Added HAS_PITTA_MMU for Pitta
+```
+HAS_PITTA_MMU = src_filter=+<src/feature/pitta/pitta.cpp>
+```
+
+### Conditionals_LCD.h
+```
+// PITTA
+#define PITTA_MMU              4
+        :
+// PITTA
+#if MMU_MODEL == PITTA_MMU
+  #define HAS_PITTA_MMU 1
+#endif
+        :
+// PITTA
+#undef PITTA_MMU
+        :
+// PITTA
+#elif HAS_PITTA_MMU
+  #define E_STEPPERS      1
+  #define E_MANUAL        1
+#endif
+```
+
 ## Upload firmware to 3D printer
 3D printer require the firmware.bin file to be copied onto the onboard SD card, and then you must reboot the printer to complete the install. Firmware binary file is located in the ".pio/build/(your target board)/" folder.
 
