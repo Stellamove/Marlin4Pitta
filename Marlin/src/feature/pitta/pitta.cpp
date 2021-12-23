@@ -38,7 +38,7 @@
 #include "../../MarlinCore.h"
 
 PITTA pitta;
-#define MODEL_E3V2
+#define MODEL_E3V2_PRO32
 // #define MODEL_E3PRO
 
 
@@ -239,7 +239,7 @@ void pitta_enable_e0() {
 
 #endif
 
-#ifdef MODEL_E3V2
+#ifdef MODEL_E3V2_PRO32
 
 #define SPREAD_DIR HIGH
 #define SPREAD_RES_DIR LOW
@@ -514,8 +514,8 @@ void ext_ramp_acc(bool dir, unsigned int st_spd, unsigned int ed_spd, long int l
 
 void snap_ext_damp(bool dir, unsigned int spd, long int last_cnt)
 {
-  ext_flat(dir, spd, last_cnt);
   if (last_cnt<0) return;
+  ext_flat(dir, spd, last_cnt);
   return;
   last_cnt = (last_cnt >> 1)*MUL_V;
   spd = spd/MUL_V;
@@ -707,54 +707,38 @@ void ext_snap()
 
   pitta_req_manage_heater_update();  
 
-  snap_ext_damp(INV_DIR, 200, 100);
-  snap_ext_damp(INV_DIR, 150, 500);
-  snap_ext_damp(INV_DIR, 110, 50);
-  snap_ext_damp(INV_DIR, 70, 50);
-  snap_ext_damp(INV_DIR, 50, 1400);
-  snap_ext_damp(INV_DIR, 80, 100);
-  snap_ext_damp(INV_DIR, 100, 50);
+  snap_ext_damp(NOM_DIR, 600, 100);
+  for (int i = 0;i< 30;i++) {
+   
+    snap_ext_damp(INV_DIR, 200, 410);    
+    snap_ext_damp(NOM_DIR, 250, 400);
+  }
+
+  snap_ext_damp(INV_DIR, 1200, 500);
+  snap_ext_damp(INV_DIR, 120, 100);
+  snap_ext_damp(INV_DIR, 80, 50);
+  snap_ext_damp(INV_DIR, 50, 1000);
+  snap_ext_damp(INV_DIR, 90, 50);
   snap_ext_damp(INV_DIR, 150, 50);
-  snap_ext_damp(INV_DIR, 2500, 200);
-  
-  snap_ext_damp(INV_DIR, 110, 50);
-  snap_ext_damp(INV_DIR, 70, 50);
-  snap_ext_damp(INV_DIR, 50, 16000);
+  snap_ext_damp(INV_DIR, 5000, 900);
+  snap_ext_damp(NOM_DIR, 900, 1000);// 3800
 
-  for (int i = 0;i< pitta_val_3/* pitta_extrude_turn_B_val */;i++) {
-   
-    snap_ext_damp(INV_DIR, 100, 1600);    
-    snap_ext_damp(NOM_DIR, 100, 1600);
-  }
-  snap_ext_damp(NOM_DIR, 100, 3000);
-  snap_ext_damp(NOM_DIR, 50, 13000);
-  snap_ext_damp(NOM_DIR, 300, 1500);
-  // snap_ext_damp(NOM_DIR, 550, 500);
-  snap_ext_damp(NOM_DIR, 550, 1000 + pitta_val_6*50);//1000  // 10 
-  // snap_ext_damp(NOM_DIR, 1500, 100);
-  // snap_ext_damp(NOM_DIR, 600, 100);
+  snap_ext_damp(INV_DIR, 120, 100);
+  snap_ext_damp(INV_DIR, 80, 50);
+  snap_ext_damp(INV_DIR, 50, 10000);
+  snap_ext_damp(INV_DIR, 80, 50);
+  snap_ext_damp(INV_DIR, 120, 100);
 
-  for (int i = 0;i< 12/* pitta_extrude_turn_B_val */;i++) {
-   
-    snap_ext_damp(INV_DIR, 80, 350);    
-    snap_ext_damp(NOM_DIR, 90, 350);
-  }
+  snap_ext_damp(NOM_DIR, 120, 100);
+  snap_ext_damp(NOM_DIR, 80, 50);
+  snap_ext_damp(NOM_DIR, 70, 12500);
+  snap_ext_damp(NOM_DIR, 80, 50);
+  snap_ext_damp(NOM_DIR, 120, 100);  
+  snap_ext_damp(NOM_DIR, 1000, 100); 
 
-
- 
-
-
-  // snap_ext_damp(INV_DIR, 100, 6000);
-  // snap_ext_damp(NOM_DIR, 200, 6000);
-  // snap_ext_damp(NOM_DIR, 3000, 400);
-  // snap_ext_damp(NOM_DIR, 700, 800);
-  // snap_ext_damp(NOM_DIR, 400, pitta_val_3*400 - 9000);//1000
-
-  // snap_ext_damp(NOM_DIR, 700, 100*pitta_val_6);//1000
-  // snap_ext_damp(NOM_DIR, 300, 100);//1000
-  snap_ext_damp(INV_DIR, 150, 20);
-  snap_ext_damp(INV_DIR, 120, 40);
-  snap_ext_damp(INV_DIR, 80, 60);
+  snap_ext_damp(INV_DIR, 150, 100);
+  snap_ext_damp(INV_DIR, 120, 30);
+  snap_ext_damp(INV_DIR, 80, 40);
   snap_ext_damp(INV_DIR, 70, 30);
   snap_ext_damp(INV_DIR, 55, 20);
   snap_ext_damp(INV_DIR, 45, 16000);
@@ -764,12 +748,12 @@ void ext_snap()
   snap_ext_damp(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
   snap_ext_damp(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//
  
+ 
   pitta_wtcdog_reset();
   b_snap_done = true;
   b_req_retract_fully = true;
   pitta_ui_thermal_update();
 
-  // pitta_req_manage_heater_update();
   long int wait_expire_cnt = 0;
   bool b_step = false;
   // mExtruder_dir(INV_DIR);
@@ -780,12 +764,7 @@ void ext_snap()
   while (chk_material() && wait_expire_cnt < 80000) {//130000
     b_retract_more_req = true;
     wait_expire_cnt++;
-/*     if (wait_expire_cnt == 60000) {
-      mExtruder_dir(INV_DIR);
-      delay(5);
-      WRITE(E0_ENABLE_PIN, LOW);
-      delay(5);
-    } */
+
     b_step = !b_step;
     {
       if (b_step)
@@ -860,7 +839,6 @@ void retract_ready()
   delay(1);
   mExtruder_dir(NOM_DIR);
   safe_delay(50);
-  // SERIAL_ECHOLNPGM("PITTA ready extrude ");
   while (!b_material_empty && wait_expire_cnt < 2000*MUL_V) {
     if (!chk_material()) {
       chk_cnt++;
@@ -990,7 +968,7 @@ void PITTA::enable(bool b_enable)
   b_retract_ready = false;
 }
 
-#ifdef MODEL_E3V2
+#ifdef MODEL_E3V2_PRO32
 void PITTA::init()
 {
   set_runout_valid(false);
@@ -1618,7 +1596,7 @@ void PITTA::fila_change(const uint8_t index)
 #ifdef MODEL_E3PRO
       lcd_status_printf_P(0, PSTR("Chg F%i & turn %i"), int(index + 1), int(change_turn_val));
 #endif
-#ifdef MODEL_E3V2
+#ifdef MODEL_E3V2_PRO32
       ui.status_printf(0, F("Chg F%i & turn %i"), int(index + 1), int(change_turn_val));
 #endif
 
@@ -1676,7 +1654,7 @@ void PITTA::fila_change(const uint8_t index)
       command(PITTA_CMD_T0 + index);
       manage_response(true, true);
       b_selector_done = false;
-      #ifdef MODEL_E3V2
+      #ifdef MODEL_E3V2_PRO32
       ui.reset_status();
       #endif
       #ifdef MODEL_E3PRO
@@ -2160,7 +2138,7 @@ void PITTA::physical_processing() {
 #ifdef MODEL_E3PRO
         lcd_status_printf_P(0, PSTR("Chg F%i & turn %i"), int(index + 1), int(change_turn_val));
 #endif
-#ifdef MODEL_E3V2
+#ifdef MODEL_E3V2_PRO32
         ui.status_printf(0, F("stp e%i & turn %i"), int(jam_expire_cnt), int(change_turn_val));
 #endif           
         // delay(10);
