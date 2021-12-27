@@ -38,8 +38,8 @@
 #include "../../MarlinCore.h"
 
 PITTA pitta;
-#define MODEL_E3V2_PRO32
-// #define MODEL_E3PRO
+#define MODEL_E3V2_PRO32  // e3v2 and e3 pro 32bit main board. 
+// #define MODEL_E3PRO  // too small memory, so stopped to port for e3 pro uses 8 bit main board. 
 
 
 
@@ -707,34 +707,15 @@ void ext_snap()
 
   pitta_req_manage_heater_update();  
 
-  snap_ext_damp(NOM_DIR, 600, 100);
-  for (int i = 0;i< 30;i++) {
-   
-    snap_ext_damp(INV_DIR, 200, 410);    
-    snap_ext_damp(NOM_DIR, 250, 400);
-  }
+  snap_ext_damp(NOM_DIR, 10000, 100);
 
-  snap_ext_damp(INV_DIR, 1200, 500);
-  snap_ext_damp(INV_DIR, 120, 100);
-  snap_ext_damp(INV_DIR, 80, 50);
-  snap_ext_damp(INV_DIR, 50, 1000);
-  snap_ext_damp(INV_DIR, 90, 50);
-  snap_ext_damp(INV_DIR, 150, 50);
-  snap_ext_damp(INV_DIR, 5000, 900);
-  snap_ext_damp(NOM_DIR, 900, 1000);// 3800
+  snap_ext_damp(INV_DIR, 70, 27000);    
+  snap_ext_damp(NOM_DIR, 150, 26000);  
+  snap_ext_damp(NOM_DIR, 500, 1000);  
+  snap_ext_damp(NOM_DIR, 900, 100*6);//pitta_val_6 : 6
 
-  snap_ext_damp(INV_DIR, 120, 100);
-  snap_ext_damp(INV_DIR, 80, 50);
-  snap_ext_damp(INV_DIR, 50, 10000);
-  snap_ext_damp(INV_DIR, 80, 50);
-  snap_ext_damp(INV_DIR, 120, 100);
-
-  snap_ext_damp(NOM_DIR, 120, 100);
-  snap_ext_damp(NOM_DIR, 80, 50);
-  snap_ext_damp(NOM_DIR, 70, 12500);
-  snap_ext_damp(NOM_DIR, 80, 50);
-  snap_ext_damp(NOM_DIR, 120, 100);  
-  snap_ext_damp(NOM_DIR, 1000, 100); 
+  snap_ext_damp(INV_DIR, 60, 15000);    
+  snap_ext_damp(NOM_DIR, 70, 14950);  
 
   snap_ext_damp(INV_DIR, 150, 100);
   snap_ext_damp(INV_DIR, 120, 30);
@@ -747,8 +728,8 @@ void ext_snap()
   pitta_set_temp((temp_temp_extruder), 0);   
   snap_ext_damp(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
   snap_ext_damp(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//
- 
- 
+   
+
   pitta_wtcdog_reset();
   b_snap_done = true;
   b_req_retract_fully = true;
@@ -797,7 +778,7 @@ void ext_snap()
         E0_STEP_WRITE(LOW);
       }    
     }
-    delayMicroseconds(80);
+    delayMicroseconds(120);
     termal_expire_cnt++;
     if (termal_expire_cnt>100) {
       termal_expire_cnt = 0;
@@ -817,7 +798,7 @@ void ext_snap()
     {
       E0_STEP_WRITE(LOW);
     }
-    delayMicroseconds(80);
+    delayMicroseconds(120);
   } 
   pitta_req_manage_heater_update();
   mExtruder_dir(NOM_DIR);
