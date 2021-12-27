@@ -709,8 +709,9 @@ void ext_snap()
 
   snap_ext_damp(NOM_DIR, 10000, 100);
 
-  snap_ext_damp(INV_DIR, 70, 27000);    
-  snap_ext_damp(NOM_DIR, 150, 26000);  
+  snap_ext_damp(INV_DIR, 500, 7000);
+  snap_ext_damp(INV_DIR, 70, 23000);    
+  snap_ext_damp(NOM_DIR, 150, 29000);  
   snap_ext_damp(NOM_DIR, 500, 1000);  
   snap_ext_damp(NOM_DIR, 900, 100*6);//pitta_val_6 : 6
 
