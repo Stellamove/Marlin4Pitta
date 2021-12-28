@@ -178,7 +178,11 @@
     #define BTN_EN2                         PB14
 
     #ifndef HAS_PIN_27_BOARD
-      #define BEEPER_PIN                    PC6
+      #if HAS_PITTA_MMU
+        // #define BEEPER_PIN               PC6
+      #else
+        #define BEEPER_PIN                  PC6
+      #endif
     #endif
 
   #elif ENABLED(VET6_12864_LCD)
