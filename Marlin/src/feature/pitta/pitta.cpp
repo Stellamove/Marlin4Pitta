@@ -719,59 +719,256 @@ void ext_snap()
   WRITE(E0_DIR_PIN, INV_DIR);
   delay(1);
   
-
   pitta_req_manage_heater_update();  
 
-  ext_flat(NOM_DIR, 10000, 100);
+  switch (pitta_val_6) {
+    case 0:
+    {
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 300);
+        ext_flat(NOM_DIR, 300, 350);
+      }
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 230, 800);
+      }      
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9000);
 
-  ext_flat(INV_DIR, 1200, 500);
-  ext_flat(INV_DIR, 850, 500);
-  ext_flat(INV_DIR, 700, 1000);
-  ext_flat(INV_DIR, 600, 1000);
-  ext_flat(INV_DIR, 600, 1000);
-  ext_flat(INV_DIR, 500, 1000);
-  ext_flat(INV_DIR, 400, 1000);
-  ext_flat(INV_DIR, 250, 1000);
-  ext_flat(INV_DIR, 150, 1000);
-  ext_flat(INV_DIR, 60, 33000);  
-  if (pitta_val_4!=0) {
-    ext_flat(INV_DIR, 60, 1000*pitta_val_4);  
-    ext_flat(NOM_DIR, 120, 1000*pitta_val_4);
+      ext_flat(INV_DIR, 600, 3000);
+      ext_flat(INV_DIR, 2000, 2000);
+      ext_flat(INV_DIR, 100, 2000);
+      for (int i = 0; i<10; i++ ) {
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 1850);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 60, 1850);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 300, 15);
+      }
+      
+      ext_flat(NOM_DIR, 200, 7000);
+      ext_flat(NOM_DIR, 100, 9000);
+      ext_flat(NOM_DIR, 1000, 230);
+      ext_flat(NOM_DIR, 2000, 100);
+
+      for (int i = 0; i<12; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 250, 815);
+      }      
+
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9500);
+
+      ext_flat(INV_DIR, 600, 2000);
+      ext_flat(INV_DIR, 1100, 1500);
+      ext_flat(INV_DIR, 700, 500);
+
+      ext_flat(INV_DIR, 200, 100);
+      ext_flat(INV_DIR, 120, 30);
+      ext_flat(INV_DIR, 80, 40);
+      ext_flat(INV_DIR, 70, 30);
+      ext_flat(INV_DIR, 55, 20);
+      ext_flat(INV_DIR, 45, 28000);      
+
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }
+      break;
+    case 1:
+    {
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 300);
+        ext_flat(NOM_DIR, 300, 350);
+      }
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 230, 800);
+      }      
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9000);
+
+      ext_flat(INV_DIR, 600, 3000);
+      ext_flat(INV_DIR, 2000, 2000);
+      ext_flat(INV_DIR, 100, 2000);
+      for (int i = 0; i<pitta_val_2; i++ ) {
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 1850);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 60, 1850);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 300, 15);
+      }
+      
+      ext_flat(NOM_DIR, 200, 7000);
+      ext_flat(NOM_DIR, 100, 9000);
+      ext_flat(NOM_DIR, 1000, 200 + pitta_val_4*10);//3
+      ext_flat(NOM_DIR, 2000, 100);
+
+      for (int i = 0; i<pitta_val_3; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 250, 815);
+      }      
+
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9500);
+
+      ext_flat(INV_DIR, 600, 2000);
+      ext_flat(INV_DIR, 1100, 1500);
+      ext_flat(INV_DIR, 700, 500);
+
+      ext_flat(INV_DIR, 200, 100);
+      ext_flat(INV_DIR, 120, 30);
+      ext_flat(INV_DIR, 80, 40);
+      ext_flat(INV_DIR, 70, 30);
+      ext_flat(INV_DIR, 55, 20);
+      ext_flat(INV_DIR, 45, 28000);      
+
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }    
+      break;
+    case 2:
+      break;
+    case 99:
+    {
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 300);
+        ext_flat(NOM_DIR, 300, 350);
+      }
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 300);
+        ext_flat(NOM_DIR, 200, 300);
+      }      
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9000);
+
+      ext_flat(INV_DIR, 600, 3000);
+      ext_flat(INV_DIR, 2000, 2000);
+      ext_flat(INV_DIR, 100, 2000);
+      for (int i = 0; i<10; i++ ) {
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 1850);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 60, 1850);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 300, 15);
+      }
+      
+      ext_flat(NOM_DIR, 200, 7000);
+      ext_flat(NOM_DIR, 100, 9000);
+      ext_flat(NOM_DIR, 1000, 230);
+      ext_flat(NOM_DIR, 2000, 100);
+
+      for (int i = 0; i<12; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 300, 815);
+      }      
+
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9500);
+
+      ext_flat(INV_DIR, 600, 2000);
+      ext_flat(INV_DIR, 1100, 1500);
+      ext_flat(INV_DIR, 700, 500);
+
+      ext_flat(INV_DIR, 200, 100);
+      ext_flat(INV_DIR, 120, 30);
+      ext_flat(INV_DIR, 80, 40);
+      ext_flat(INV_DIR, 70, 30);
+      ext_flat(INV_DIR, 55, 20);
+      ext_flat(INV_DIR, 45, 28000);      
+
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }  
+    default:
+    {
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 300);
+        ext_flat(NOM_DIR, 300, 350);
+      }
+      for (int i = 0; i<8; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 230, 800);
+      }      
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9000);
+
+      ext_flat(INV_DIR, 600, 3000);
+      ext_flat(INV_DIR, 2000, 2000);
+      ext_flat(INV_DIR, 100, 2000);
+      for (int i = 0; i<10; i++ ) {
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 1850);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 60, 1850);
+        ext_flat(NOM_DIR, 90, 60);
+        ext_flat(NOM_DIR, 300, 15);
+      }
+      
+      ext_flat(NOM_DIR, 200, 7000);
+      ext_flat(NOM_DIR, 100, 9000);
+      ext_flat(NOM_DIR, 1000, 230);
+      ext_flat(NOM_DIR, 2000, 100);
+
+      for (int i = 0; i<12; i++ ) {
+        ext_flat(INV_DIR, 200, 800);
+        ext_flat(NOM_DIR, 250, 815);
+      }      
+
+      ext_flat(INV_DIR, 150, 100);
+      ext_flat(INV_DIR, 80, 100);
+      ext_flat(INV_DIR, 60, 9500);
+
+      ext_flat(INV_DIR, 600, 2000);
+      ext_flat(INV_DIR, 1100, 1500);
+      ext_flat(INV_DIR, 700, 500);
+
+      ext_flat(INV_DIR, 200, 100);
+      ext_flat(INV_DIR, 120, 30);
+      ext_flat(INV_DIR, 80, 40);
+      ext_flat(INV_DIR, 70, 30);
+      ext_flat(INV_DIR, 55, 20);
+      ext_flat(INV_DIR, 45, 28000);      
+
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }
+      break;
   }
 
-
-  ext_flat(NOM_DIR, 120, 1000);   
-  ext_flat(NOM_DIR, 80, 24000);   
-  ext_flat(NOM_DIR, 300, 10000);   
-  ext_flat(NOM_DIR, 400, 4000);   
-  // ext_flat(NOM_DIR, 200, 1000);  
-  // ext_flat(NOM_DIR, 100, 4000);  
-  // ext_flat(NOM_DIR, 70, 34000);
-  // ext_flat(NOM_DIR, 400, 1000);  
-  ext_flat(NOM_DIR, 800, 100*pitta_val_6);//pitta_val_6 : 25
-
-  ext_flat(INV_DIR, 60, 27000); 
-  if (pitta_val_5!=0) {
-    ext_flat(INV_DIR, 60, 1000*pitta_val_5);  
-    ext_flat(NOM_DIR, 180, 1000*pitta_val_5);
-  }     
-  ext_flat(NOM_DIR, 180, 2000);
-  ext_flat(NOM_DIR, 80, 10000);
-  ext_flat(NOM_DIR, 120, 5000);  
-  ext_flat(NOM_DIR, 70, 10000);  
-
-  ext_flat(INV_DIR, 200, 100);
-  ext_flat(INV_DIR, 120, 30);
-  ext_flat(INV_DIR, 80, 40);
-  ext_flat(INV_DIR, 70, 30);
-  ext_flat(INV_DIR, 55, 20);
-  ext_flat(INV_DIR, 45, 8000);
-  ext_flat(INV_DIR, 90, 8000);
-  ext_flat(INV_DIR, 45, 20000);
-
-  pitta_set_temp((temp_temp_extruder), 0);   
-  ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
-  ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//
    
 
   pitta_wtcdog_reset();
