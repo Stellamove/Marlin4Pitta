@@ -744,7 +744,7 @@ void ext_snap()
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, 25*500);
+        ext_flat(NOM_DIR, 120, 60*500);// 60
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
@@ -886,7 +886,7 @@ void ext_snap()
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, 25*500);
+        ext_flat(NOM_DIR, 120, 60*500);
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
@@ -955,7 +955,7 @@ void ext_snap()
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, 25*500);
+        ext_flat(NOM_DIR, 120, 60*500);
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
