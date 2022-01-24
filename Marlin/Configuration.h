@@ -148,7 +148,7 @@
 #if MMU_MODEL == PITTA_MMU
   #define CUSTOM_MACHINE_NAME "PITTA PRINTER"
 #else
-  #define CUSTOM_MACHINE_NAME "Ender-3 V2"
+  #define CUSTOM_MACHINE_NAME "Ender-3 V2 4.2.2"
 #endif
 
 // Printer's unique ID, used by some programs to differentiate between machines.
