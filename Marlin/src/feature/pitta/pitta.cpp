@@ -764,7 +764,7 @@ void ext_snap()
       }      
       
       ext_flat(NOM_DIR, 300, 4000);
-      ext_flat(NOM_DIR, 100, 12000);
+      ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 1000, 200 + 55*10);//55
       ext_flat(NOM_DIR, 2000, 100);
 
@@ -834,7 +834,7 @@ void ext_snap()
       }      
       
       ext_flat(NOM_DIR, 300, 4000);
-      ext_flat(NOM_DIR, 100, 12000);
+      ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 1000, 200 + pitta_val_4*10);//55
       ext_flat(NOM_DIR, 2000, 100);
 
@@ -906,7 +906,7 @@ void ext_snap()
       }      
       
       ext_flat(NOM_DIR, 300, 4000);
-      ext_flat(NOM_DIR, 100, 12000);
+      ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 1000, 200 + 55*10);//55
       ext_flat(NOM_DIR, 2000, 100);
 
@@ -975,7 +975,7 @@ void ext_snap()
       }      
       
       ext_flat(NOM_DIR, 300, 4000);
-      ext_flat(NOM_DIR, 100, 12000);
+      ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 1000, 200 + 55*10);//55
       ext_flat(NOM_DIR, 2000, 100);
 
