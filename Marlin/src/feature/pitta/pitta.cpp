@@ -750,8 +750,10 @@ void ext_snap()
 
       ext_flat(NOM_DIR, 300, 4000);
       ext_flat(NOM_DIR, 100, 12000-750);
-      ext_flat(NOM_DIR, 100, 450 + 50*10);//50
-      ext_flat(NOM_DIR, 500, 50);
+      // // ext_flat(NOM_DIR, 100, 450 + 50*10);//50
+      // // ext_flat(NOM_DIR, 500, 50);
+      ext_flat(NOM_DIR, 100, 350 + 0*10);//0
+      ext_flat(NOM_DIR, 500+1000*25, 50);  //25    
 
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
@@ -768,13 +770,11 @@ void ext_snap()
     {
       ext_flat(INV_DIR, 200, 200);      
       ext_flat(INV_DIR, 1500, 2100);      
-      // ext_flat(INV_DIR, 900, 1600);
-
+      
       ext_flat(INV_DIR, 300, 100);
       ext_flat(INV_DIR, 250, 1100);
       ext_flat(INV_DIR, 200, 10000);      
-      // ext_flat(INV_DIR, 60, 7000);      
-
+      
       ext_flat(INV_DIR, 500, 1000);
       ext_flat(INV_DIR, 70, 2000); 
       for (int i = 0; i<1; i++ ) { 
@@ -792,22 +792,11 @@ void ext_snap()
       }
       ext_flat(NOM_DIR, 300, 4000);
       ext_flat(NOM_DIR, 100, 12000-750);
-      ext_flat(NOM_DIR, 100, 450 + pitta_val_4*10);//50
-      ext_flat(NOM_DIR, 500, 50);
-
+      ext_flat(NOM_DIR, 100, 350 + pitta_val_4*10);//0
+      ext_flat(NOM_DIR, 500+1000*pitta_val_5, 50);  //25    
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
       ext_flat(INV_DIR, 60, 14000);
-
-      // ext_flat(INV_DIR, 600, 2000);
-      // ext_flat(INV_DIR, 1100, 1500);
-      // ext_flat(INV_DIR, 700, 500);
-
-      // ext_flat(INV_DIR, 200, 100);
-      // ext_flat(INV_DIR, 120, 30);
-      // ext_flat(INV_DIR, 80, 40);
-      // ext_flat(INV_DIR, 70, 30);
-      // ext_flat(INV_DIR, 55, 20);
       ext_flat(INV_DIR, 45, 28000);      
 
       pitta_set_temp((temp_temp_extruder), 0);   
@@ -912,8 +901,8 @@ void ext_snap()
 
       ext_flat(NOM_DIR, 300, 4000);
       ext_flat(NOM_DIR, 100, 12000-750);
-      ext_flat(NOM_DIR, 100, 450 + 50*10);//50
-      ext_flat(NOM_DIR, 500, 50);
+      ext_flat(NOM_DIR, 100, 350 + 0*10);//0
+      ext_flat(NOM_DIR, 500+1000*25, 50);  //25    
 
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
