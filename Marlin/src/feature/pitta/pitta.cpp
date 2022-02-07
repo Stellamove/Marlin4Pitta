@@ -737,13 +737,13 @@ void ext_snap()
       for (int i = 0; i<1; i++ ) { 
         ext_flat(INV_DIR, 300, 15);
         ext_flat(INV_DIR, 90, 60);
-        ext_flat(INV_DIR, 60, 90*500);// 90
+        ext_flat(INV_DIR, 60, 110*500);// 110
         ext_flat(INV_DIR, 90, 60);
         ext_flat(INV_DIR, 300, 15);
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, 90*500);//90
+        ext_flat(NOM_DIR, 120, 110*500);//110
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
@@ -753,7 +753,7 @@ void ext_snap()
       // // ext_flat(NOM_DIR, 100, 450 + 50*10);//50
       // // ext_flat(NOM_DIR, 500, 50);
       ext_flat(NOM_DIR, 100, 350 + 0*10);//0
-      ext_flat(NOM_DIR, 500+1000*25, 50);  //25    
+      ext_flat(NOM_DIR, 500+1000*50, 50);  //50    
 
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
@@ -780,20 +780,20 @@ void ext_snap()
       for (int i = 0; i<1; i++ ) { 
         ext_flat(INV_DIR, 300, 15);
         ext_flat(INV_DIR, 90, 60);
-        ext_flat(INV_DIR, 60, pitta_val_2*500);// 90
+        ext_flat(INV_DIR, 60, pitta_val_2*500);// 110
         ext_flat(INV_DIR, 90, 60);
         ext_flat(INV_DIR, 300, 15);
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, pitta_val_2*500);//90
+        ext_flat(NOM_DIR, 120, pitta_val_2*500);//110
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
       ext_flat(NOM_DIR, 300, 4000);
       ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 100, 350 + pitta_val_4*10);//0
-      ext_flat(NOM_DIR, 500+1000*pitta_val_5, 50);  //25    
+      ext_flat(NOM_DIR, 500+1000*pitta_val_5, 50);  //50    
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
       ext_flat(INV_DIR, 60, 14000);
@@ -875,7 +875,7 @@ void ext_snap()
     }      
       break;
     default:
-    {
+  {
       ext_flat(INV_DIR, 200, 200);      
       ext_flat(INV_DIR, 1500, 2100);      
       
@@ -888,21 +888,23 @@ void ext_snap()
       for (int i = 0; i<1; i++ ) { 
         ext_flat(INV_DIR, 300, 15);
         ext_flat(INV_DIR, 90, 60);
-        ext_flat(INV_DIR, 60, 90*500);// 90
+        ext_flat(INV_DIR, 60, 110*500);// 110
         ext_flat(INV_DIR, 90, 60);
         ext_flat(INV_DIR, 300, 15);
 
         ext_flat(NOM_DIR, 300, 15);
         ext_flat(NOM_DIR, 150, 60);
-        ext_flat(NOM_DIR, 120, 90*500);//90
+        ext_flat(NOM_DIR, 120, 110*500);//110
         ext_flat(NOM_DIR, 150, 60);
         ext_flat(NOM_DIR, 300, 15);                  
       }
 
       ext_flat(NOM_DIR, 300, 4000);
       ext_flat(NOM_DIR, 100, 12000-750);
+      // // ext_flat(NOM_DIR, 100, 450 + 50*10);//50
+      // // ext_flat(NOM_DIR, 500, 50);
       ext_flat(NOM_DIR, 100, 350 + 0*10);//0
-      ext_flat(NOM_DIR, 500+1000*25, 50);  //25    
+      ext_flat(NOM_DIR, 500+1000*50, 50);  //50    
 
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
