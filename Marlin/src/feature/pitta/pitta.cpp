@@ -755,6 +755,22 @@ void ext_snap()
       ext_flat(NOM_DIR, 100, 350 + 15*10);//15
       ext_flat(NOM_DIR, 500+1000*5, 50);  //5    
 
+
+      for (int i = 0; i<5; i++ ) { 
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 110*6);// 110
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 120, 110*6);//110
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 300, 15);                  
+      }
+
+
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
       ext_flat(INV_DIR, 60, 14000);
@@ -794,6 +810,22 @@ void ext_snap()
       ext_flat(NOM_DIR, 100, 12000-750);
       ext_flat(NOM_DIR, 100, 350 + pitta_val_4*10);//15
       ext_flat(NOM_DIR, 500+1000*pitta_val_5, 50);  //5    
+
+
+      for (int i = 0; i<pitta_val_3; i++ ) { //5
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 110*6);// 110
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 120, 110*6);//110
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 300, 15);                  
+      }
+
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
       ext_flat(INV_DIR, 60, 14000);
@@ -906,6 +938,22 @@ void ext_snap()
       ext_flat(NOM_DIR, 100, 350 + 15*10);//15
       ext_flat(NOM_DIR, 500+1000*5, 50);  //5    
 
+
+      for (int i = 0; i<5; i++ ) { 
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 110*6);// 110
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 120, 110*6);//110
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 300, 15);                  
+      }
+
+
       ext_flat(INV_DIR, 150, 100);
       ext_flat(INV_DIR, 80, 100);
       ext_flat(INV_DIR, 60, 14000);
@@ -915,7 +963,7 @@ void ext_snap()
       pitta_set_temp((temp_temp_extruder), 0);   
       ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
       ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
-    }    
+    }   
       break;
   }
 
