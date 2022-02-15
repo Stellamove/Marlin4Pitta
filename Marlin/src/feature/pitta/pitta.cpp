@@ -836,6 +836,90 @@ void ext_snap()
       ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
     }    
       break;
+    case 2:
+    {
+      ext_flat(INV_DIR, 1500, 300);      
+      // ext_flat(INV_DIR, 1500, 2100);
+
+      for (int i = 0; i<10; i++ ) { //10//pitta_val_3
+        ext_flat(INV_DIR, 300, 15);
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 60, 110*5);// 110
+        ext_flat(INV_DIR, 90, 60);
+        ext_flat(INV_DIR, 300, 15);
+
+        ext_flat(NOM_DIR, 300, 15);
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 120, 110*5);//110
+        ext_flat(NOM_DIR, 150, 60);
+        ext_flat(NOM_DIR, 300, 15);                  
+      }            
+      
+      ext_flat(INV_DIR, 200, 20);
+      ext_flat(INV_DIR, 150, 30);
+      ext_flat(INV_DIR, 100, 40);
+      ext_flat(INV_DIR, 70, 50);
+      ext_flat(INV_DIR, 60, 60);
+      ext_flat(INV_DIR, 50, 70);
+      ext_flat(INV_DIR, 45, 80);
+      ext_flat(INV_DIR, 45, 10000);      
+      ext_flat(INV_DIR, 60, 50);
+      ext_flat(INV_DIR, 100, 50);
+      ext_flat(INV_DIR, 200, 100);
+      ext_flat(INV_DIR, 1000, 4000);
+      ext_flat(INV_DIR, 200, 10);
+      ext_flat(INV_DIR, 150, 20);
+      ext_flat(INV_DIR, 100, 30);
+      ext_flat(INV_DIR, 70, 40);
+      ext_flat(INV_DIR, 60, 50);
+      ext_flat(INV_DIR, 50, 50);
+      ext_flat(INV_DIR, 45, 50);
+      
+      // ext_flat(INV_DIR, 500, 1000);
+      // ext_flat(INV_DIR, 70, 2000); 
+      // for (int i = 0; i<1; i++ ) { 
+      //   ext_flat(INV_DIR, 300, 15);
+      //   ext_flat(INV_DIR, 90, 60);
+      //   ext_flat(INV_DIR, 60, pitta_val_2*500);// 110
+      //   ext_flat(INV_DIR, 90, 60);
+      //   ext_flat(INV_DIR, 300, 15);
+
+      //   ext_flat(NOM_DIR, 300, 15);
+      //   ext_flat(NOM_DIR, 150, 60);
+      //   ext_flat(NOM_DIR, 120, pitta_val_2*500);//110
+      //   ext_flat(NOM_DIR, 150, 60);
+      //   ext_flat(NOM_DIR, 300, 15);                  
+      // }
+      // ext_flat(NOM_DIR, 300, 4000);
+      // ext_flat(NOM_DIR, 100, 12000-750);
+      // ext_flat(NOM_DIR, 100, 350 + pitta_val_4*10);//15
+      // ext_flat(NOM_DIR, 500+1000*pitta_val_5, 50);  //5    
+
+
+      // for (int i = 0; i<pitta_val_3; i++ ) { //5
+      //   ext_flat(INV_DIR, 300, 15);
+      //   ext_flat(INV_DIR, 90, 60);
+      //   ext_flat(INV_DIR, 60, 110*6);// 110
+      //   ext_flat(INV_DIR, 90, 60);
+      //   ext_flat(INV_DIR, 300, 15);
+
+      //   ext_flat(NOM_DIR, 300, 15);
+      //   ext_flat(NOM_DIR, 150, 60);
+      //   ext_flat(NOM_DIR, 120, 110*6);//110
+      //   ext_flat(NOM_DIR, 150, 60);
+      //   ext_flat(NOM_DIR, 300, 15);                  
+      // }
+
+      // ext_flat(INV_DIR, 150, 100);
+      // ext_flat(INV_DIR, 80, 100);
+      // ext_flat(INV_DIR, 60, 14000);
+      ext_flat(INV_DIR, 45, 28000);      
+
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }    
+      break;      
     case 100: // old setting 0
     {
       ext_flat(INV_DIR, 100, 200);      
@@ -2121,7 +2205,7 @@ void PITTA::on_receiving() {
           chk_high8 = chk_high8 & 0xff;
           SERIAL_ECHOLNPGM("rcv chk: ", (unsigned)received_chk8);
 
-          if (chk_high8 == received_chk8) {
+          if (chk_high8 == received_chk8&&received_packet!=0) {
               b_byte_receive_done = true;
               SERIAL_ECHO("Rcv: ");
               SERIAL_ECHOLN(received_data);
@@ -2135,6 +2219,9 @@ void PITTA::on_receiving() {
               SERIAL_ECHOLN(received_data);
               SERIAL_ECHOLN((unsigned)received_packet);
               SERIAL_ECHOLN("Resend Request H");
+              if (received_packet == 0) {
+                SERIAL_ECHOLN("Wrong command Received!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+              }
               b_pitta_data_init = false;
               b_resend_req = true;
               SERIAL_ECHOLN("move from RCV to PREPAIR for resend request");
@@ -2274,6 +2361,17 @@ void PITTA::parsing() {
       pitta_data_state = PREPAIR;
       pitta_val_6 = received_data;
     } 
+    else {
+      // SERIAL_ECHO("Rcv: ");
+      // SERIAL_ECHOLN(received_data);
+      // SERIAL_ECHOLN((unsigned)received_packet);
+      SERIAL_ECHOLN("Wrong command received... *********************************************************");
+      b_pitta_data_init = false;
+      b_resend_req = true;
+      SERIAL_ECHOLN("move from PARSER to PREPAIR for resend request");
+      confirmed_set_output_low();
+      pitta_data_state = PREPAIR;      
+    }
 /*     else if (received_cmd == TUNE_VAL7 ) {
       proc_state = PROC_CONTINUE;
       SERIAL_ECHO("tune val 7 set:");
