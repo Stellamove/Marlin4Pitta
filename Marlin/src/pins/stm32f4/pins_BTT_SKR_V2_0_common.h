@@ -136,7 +136,7 @@
 // PITTA Command Interface
 //
 #if HAS_PITTA_MMU
-#define ONE_W_CMD_PIN                       PB9 //PB1 //use bl touch if //PA6 // share with Y_STOP_PIN
+#define ONE_W_CMD_PIN                       PC5 //PB1 //use bl touch if //PA6 // share with Y_STOP_PIN
 #endif
 
 //
@@ -463,19 +463,23 @@
 
 #elif HAS_WIRED_LCD
 
-  #define BEEPER_PIN                 EXP1_10_PIN
+  #if HAS_PITTA_MMU
+    #define BEEPER_PIN               -1
+  #else
+    #define BEEPER_PIN               EXP1_10_PIN
+  #endif
   #define BTN_ENC                    EXP1_09_PIN
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
     // PITTA
-    #define LCD_PINS_RS              EXP1_07_PIN // EXP1_04_PIN
+    #define LCD_PINS_RS              EXP1_04_PIN
 
-    #define BTN_EN1                  EXP2_08_PIN // EXP1_08_PIN
-    #define BTN_EN2                  EXP2_06_PIN // EXP1_06_PIN
+    #define BTN_EN1                  EXP1_08_PIN
+    #define BTN_EN2                  EXP1_06_PIN
 
-    #define LCD_PINS_ENABLE          EXP1_08_PIN // EXP1_03_PIN
-    #define LCD_PINS_D4              EXP1_06_PIN // EXP1_05_PIN
+    #define LCD_PINS_ENABLE          EXP1_03_PIN
+    #define LCD_PINS_D4              EXP1_05_PIN
 
   #elif ENABLED(MKS_MINI_12864)
 
