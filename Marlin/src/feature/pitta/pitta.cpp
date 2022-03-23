@@ -2240,7 +2240,7 @@ void PITTA::on_listen() {
     if (rcv_packet_expire>25000) {//40000 //90000
       if (b_rcv_confirm_need) {
         SERIAL_ECHOLN("");
-        SERIAL_ECHOLN("Listen expire, Resend Request");
+        SERIAL_ECHOLN("Listen expire, Retry Request");
         b_pitta_data_init = false;
         b_resend_req = true;
         resend_retry_cnt++;
@@ -2313,12 +2313,12 @@ void PITTA::on_receiving() {
       if (b_rcv_confirm_need) {
         SERIAL_ECHO("Rcv: ");
         SERIAL_ECHOLN((unsigned)receive_byte);
-        SERIAL_ECHOLN("Resend Request expire");
+        SERIAL_ECHOLN("Retry Request expire");
         receive_byte = 0;
         b_pitta_data_init = false;
         b_resend_req = true;
         resend_retry_cnt++;
-        SERIAL_ECHOLN("move from RCV to PREPAIR for resend request");
+        SERIAL_ECHOLN("move from RCV to PREPAIR for retry request");
         confirmed_set_output_low();
         pitta_data_state = PREPAIR;
         pitta_req_manage_heater_update();
@@ -2415,7 +2415,7 @@ void PITTA::on_receiving() {
               SERIAL_ECHO("Rcv: ");
               SERIAL_ECHOLN(received_data);
               SERIAL_ECHOLN((unsigned)received_packet);
-              SERIAL_ECHOLN("Resend Request H");
+              SERIAL_ECHOLN("Retry Request H");
               if (received_packet == 0) {
                 #ifdef DEV_NCMD_PRINT
                 wrong_packet_cnt++;
@@ -2425,7 +2425,7 @@ void PITTA::on_receiving() {
               b_pitta_data_init = false;
               b_resend_req = true;
               resend_retry_cnt++;
-              SERIAL_ECHOLN("move from RCV to PREPAIR for resend request");
+              SERIAL_ECHOLN("move from RCV to PREPAIR for retry request");
               confirmed_set_output_low();
               pitta_data_state = PREPAIR;
           }
@@ -2450,9 +2450,8 @@ void PITTA::parsing() {
   pitta_req_manage_heater_update();
   {
     if (received_cmd == RESEND_REQ) {
-      // SERIAL_ECHOLN("RESEND");  
       send_packet = 0xffffffff & resend_var;
-      SERIAL_ECHOLNPGM("RESEND: ", send_packet);
+      SERIAL_ECHOLNPGM("RETRY: ", send_packet);
       long chk_high8 = 0;
       for (int i = 0;i<24; i++) {
           chk_high8 = chk_high8 + (((0xffffff & send_packet)>>i)&0x1)*(i+0)*2;
@@ -2573,7 +2572,7 @@ void PITTA::parsing() {
       b_pitta_data_init = false;
       b_resend_req = true;
       resend_retry_cnt++;
-      SERIAL_ECHOLN("move from PARSER to PREPAIR for resend request");
+      SERIAL_ECHOLN("move from PARSER to PREPAIR for retry request");
       confirmed_set_output_low();
       pitta_data_state = PREPAIR;      
     }
@@ -2952,7 +2951,7 @@ void PITTA::physical_processing() {
           SET_INPUT_PULLUP(ONE_W_CMD_PIN);
           pitta_sel_req = false;
           SERIAL_ECHOLNPGM("extrude ready: ", mot_ext_remain_step);
-          SERIAL_ECHOLNPGM("expire_resend_cnt : ", expire_resend_cnt);
+          SERIAL_ECHOLNPGM("expire_retry_cnt : ", expire_resend_cnt);
           b_jam_recovered = false;
           i_ABS_MOT_TRIGGER_CNT_DUTY = 2000;//1500
 
@@ -3035,7 +3034,7 @@ void PITTA::data_prepair() {
   {
     if (resend_retry_cnt>2) {
       resend_retry_cnt = 0;
-      SERIAL_ECHOLN("RESEND RETRY WAIT 2 SEC");
+      SERIAL_ECHOLN("RETRY WAIT 2 SEC");
       for (int i = 0; i<20; i++) {
         delay(100);
         pitta_wtcdog_reset();
@@ -3044,7 +3043,7 @@ void PITTA::data_prepair() {
     }
     temp_var = resend_var;
     resend_var = temp_var;
-    SERIAL_ECHOLNPGM("SEND FAIL, RESEND: ", temp_var);
+    SERIAL_ECHOLNPGM("SEND FAIL, RETRY: ", temp_var);
     b_resend_req = false;
   }
   SERIAL_ECHOLNPGM("pitta.data: ", temp_var);
