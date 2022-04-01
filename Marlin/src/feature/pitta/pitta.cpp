@@ -722,11 +722,13 @@ void ext_snap()
 
 
 #define TEST_PATTERN
-#define FAST_PASS 65 //60
-#define SLOW_PASS 170 //150 
+#define FAST_PASS 70 //60
+#define SLOW_PASS 200 //150 
 #define TURN_PASS 270 // 250
 #define COOL_ADD 500
 #define DIP_MELT 200
+#define VAL_RESRV2 30
+#define VAL_RESRV3 7
   cur_ext_dir = INV_DIR;
   E0_DIR_WRITE(INVERT_E0_DIR ? !INV_DIR : INV_DIR);
   delay(2);
@@ -739,108 +741,202 @@ void ext_snap()
   pitta_req_manage_heater_update();  
   switch (ptrn_n) {
     case 0:
-    {
-      resrv2 = 45;
-      ext_flat(INV_DIR, 100, 50);
-      ext_flat(INV_DIR, 1000, 250);
-      // l_turn = resrv2;//
-      for (int i = 0; i<10; i++ ) { ////20//resrv2
+    { 
+      ext_flat(INV_DIR, 300, 60);
+      ext_flat(INV_DIR, 200, 240);
+      ext_flat(INV_DIR, 6000, 200);
+      ext_flat(INV_DIR, 1000, 100);
+      ext_flat(INV_DIR, 500, 300);
+      ext_flat(INV_DIR, 400, 100);
+      ext_flat(INV_DIR, 300, 100);
+      add = 0;
+      for (int i = 0; i<1; i++ ) { 
         ext_flat(INV_DIR, TURN_PASS, 15);
         ext_flat(INV_DIR, SLOW_PASS, 10);
-        ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, 90, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, 100, 20);
         ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 70, 15);
-        ext_flat(INV_DIR, FAST_PASS, 10);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 75, 15);
+        ext_flat(INV_DIR, FAST_PASS, 5200+add);
+        ext_flat(INV_DIR, 75, 15);
         ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 90, 20);
-        ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, SLOW_PASS, 15);
-        ext_flat(INV_DIR, TURN_PASS, 10);
-
-        ext_flat(NOM_DIR, TURN_PASS, 10);
-        ext_flat(NOM_DIR, SLOW_PASS, 15);
-        ext_flat(NOM_DIR, 110, 20);
-        ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, FAST_PASS, 0);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 110, 20);
-        ext_flat(NOM_DIR, SLOW_PASS, 10);
-        ext_flat(NOM_DIR, TURN_PASS, 15);
-      }
+        ext_flat(INV_DIR, 100, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, 1000, 1000+add);
+        ext_flat(NOM_DIR, 500, 4800+add);
+        ext_flat(NOM_DIR, 3000, 200+add);
+        // add+=500;
+      }     
+      resrv2 = VAL_RESRV2;  
       l_turn = resrv2;//
-      for (int i = 0; i<l_turn; i++ ) { ////20//resrv2
+      add = 0;
+      for (int i = 0; i<l_turn; i++ ) {
         ext_flat(INV_DIR, TURN_PASS, 15);
         ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, 130, 20);
         ext_flat(INV_DIR, 110, 20);
         ext_flat(INV_DIR, 90, 20);
-        ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 80, 15);
         if (i == 10) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 7500);
+          add +=7500;
         }
         else if ( i == 17) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add +=500;
         }
         else if ( i == 28) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add += 500;
         }
-        else if ( i == 35) {
-          ext_flat(INV_DIR, FAST_PASS, 170 + 500);
-        }
+        // else if ( i == 35) {
+        //   ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+        // }
         else {
           ext_flat(INV_DIR, FAST_PASS, 170);
         }
-        ext_flat(INV_DIR, 70, 15);
-        ext_flat(INV_DIR, 80, 20);
+        ext_flat(INV_DIR, 80, 15);
         ext_flat(INV_DIR, 90, 20);
         ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, SLOW_PASS, 15);
-        ext_flat(INV_DIR, TURN_PASS, 10);
-
-        ext_flat(NOM_DIR, TURN_PASS, 10);
-        ext_flat(NOM_DIR, SLOW_PASS, 15);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, SLOW_PASS, 10);
+        ext_flat(NOM_DIR, 130, 20);
         ext_flat(NOM_DIR, 110, 20);
         ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, FAST_PASS, 170);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, 80, 20);
+        ext_flat(NOM_DIR, 80, 15);
+        ext_flat(NOM_DIR, FAST_PASS, 170);    
+        ext_flat(NOM_DIR, 80, 15);
         ext_flat(NOM_DIR, 90, 20);
         ext_flat(NOM_DIR, 110, 20);
+        ext_flat(NOM_DIR, 130, 20);
         ext_flat(NOM_DIR, SLOW_PASS, 10);
         ext_flat(NOM_DIR, TURN_PASS, 15);
-      } 
-      ext_flat(NOM_DIR, 200,8700);//8900
+      }
+      ext_flat(NOM_DIR, 200,add - 150);//8900
       ext_flat(NOM_DIR, 300,300);
-      ext_flat(NOM_DIR, 100*27,100);//resrv3 23
- 
+      resrv3 = VAL_RESRV3;
+      ext_flat(NOM_DIR, 100*resrv3,100);
+      ext_flat(INV_DIR, 350, 12);
       ext_flat(INV_DIR, 300, 12);
-      ext_flat(INV_DIR, 250, 12);
+      ext_flat(INV_DIR, 250, 10);
       ext_flat(INV_DIR, 200, 10);
-      ext_flat(INV_DIR, 170, 10);
-      ext_flat(INV_DIR, 120, 10);
-      ext_flat(INV_DIR, 100, 15);
-      ext_flat(INV_DIR, 80, 20);
-      ext_flat(INV_DIR, 70, 30);
-      ext_flat(INV_DIR, 60, 50);
-      ext_flat(INV_DIR, 50, 70);
-      ext_flat(INV_DIR, 45, 60);
+      ext_flat(INV_DIR, 150, 10);
+      ext_flat(INV_DIR, 120, 15);
+      ext_flat(INV_DIR, 90, 20);
+      ext_flat(INV_DIR, 80, 30);
+      ext_flat(INV_DIR, 70, 50);
+      ext_flat(INV_DIR, 60, 70);
+      ext_flat(INV_DIR, 50, 60);
       ext_flat(INV_DIR, 45, 39000);
-
       pitta_set_temp((temp_temp_extruder), 0);
       ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
       ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//
-
     }
     break;
     case 4:
+#if 1
+    {
+      ext_flat(INV_DIR, 300, 60);
+      ext_flat(INV_DIR, 200, 240);
+      ext_flat(INV_DIR, 6000, 200);
+      ext_flat(INV_DIR, 1000, 100);
+      ext_flat(INV_DIR, 500, 300);
+      ext_flat(INV_DIR, 400, 100);
+      ext_flat(INV_DIR, 300, 100);
+      add = 0;
+      for (int i = 0; i<1; i++ ) {
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, 100, 20);
+        ext_flat(INV_DIR, 80, 20);
+        ext_flat(INV_DIR, 75, 15);
+        ext_flat(INV_DIR, FAST_PASS, 5200+add);
+        ext_flat(INV_DIR, 75, 15);
+        ext_flat(INV_DIR, 80, 20);
+        ext_flat(INV_DIR, 100, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, 1000, 1000+add);
+        ext_flat(NOM_DIR, 500, 4800+add);
+        ext_flat(NOM_DIR, 3000, 200+add);
+        // add+=500;
+      }
+      // resrv2 = VAL_RESRV2;
+      l_turn = resrv2;//
+      add = 0;
+      for (int i = 0; i<l_turn; i++ ) {
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, 110, 20);
+        ext_flat(INV_DIR, 90, 20);
+        ext_flat(INV_DIR, 80, 15);
+        if (i == 10) {
+          ext_flat(INV_DIR, FAST_PASS, 170 + 7500);
+          add +=7500;
+        }
+        else if ( i == 17) {
+          ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add +=500;
+        }
+        else if ( i == 28) {
+          ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add += 500;
+        }
+        // else if ( i == 35) {
+        //   ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+        // }
+        else {
+          ext_flat(INV_DIR, FAST_PASS, 170);
+        }
+        ext_flat(INV_DIR, 80, 15);
+        ext_flat(INV_DIR, 90, 20);
+        ext_flat(INV_DIR, 110, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, SLOW_PASS, 10);
+        ext_flat(NOM_DIR, 130, 20);
+        ext_flat(NOM_DIR, 110, 20);
+        ext_flat(NOM_DIR, 90, 20);
+        ext_flat(NOM_DIR, 80, 15);
+        ext_flat(NOM_DIR, FAST_PASS, 170);    
+        ext_flat(NOM_DIR, 80, 15);
+        ext_flat(NOM_DIR, 90, 20);
+        ext_flat(NOM_DIR, 110, 20);
+        ext_flat(NOM_DIR, 130, 20);
+        ext_flat(NOM_DIR, SLOW_PASS, 10);
+        ext_flat(NOM_DIR, TURN_PASS, 15);
+      } 
+      ext_flat(NOM_DIR, 200,add - 150);//8900
+      ext_flat(NOM_DIR, 300,300);
+      // resrv3 = VAL_RESRV3;
+      ext_flat(NOM_DIR, 100*resrv3,100); 
+      ext_flat(INV_DIR, 350, 12);        
+      ext_flat(INV_DIR, 300, 12);
+      ext_flat(INV_DIR, 250, 10);
+      ext_flat(INV_DIR, 200, 10);
+      ext_flat(INV_DIR, 150, 10);
+      ext_flat(INV_DIR, 120, 15);
+      ext_flat(INV_DIR, 90, 20);
+      ext_flat(INV_DIR, 80, 30);
+      ext_flat(INV_DIR, 70, 50);
+      ext_flat(INV_DIR, 60, 70);
+      ext_flat(INV_DIR, 50, 60);
+      ext_flat(INV_DIR, 45, 39000);  
+      pitta_set_temp((temp_temp_extruder), 0);   
+      ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
+      ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
+    }
+#else
     {
       // resrv2 = 45;
       ext_flat(INV_DIR, 100, 50);
@@ -867,14 +963,14 @@ void ext_snap()
         ext_flat(NOM_DIR, 90, 20);
         ext_flat(NOM_DIR, 80, 20);
         ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, FAST_PASS, 0);
+        ext_flat(NOM_DIR, FAST_PASS, 0);    
         ext_flat(NOM_DIR, 70, 15);
         ext_flat(NOM_DIR, 80, 20);
         ext_flat(NOM_DIR, 90, 20);
         ext_flat(NOM_DIR, 110, 20);
         ext_flat(NOM_DIR, SLOW_PASS, 10);
         ext_flat(NOM_DIR, TURN_PASS, 15);
-      }
+      }       
       l_turn = resrv2;//
       for (int i = 0; i<l_turn; i++ ) { ////20//resrv2
         ext_flat(INV_DIR, TURN_PASS, 15);
@@ -939,10 +1035,10 @@ void ext_snap()
       pitta_set_temp((temp_temp_extruder), 0);   
       ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
       ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
-
     }
-    break;
-    case 100:
+#endif
+    break;      
+    case 100: 
     {
       resrv2 = 45;
       ext_flat(INV_DIR, 100, 50);
@@ -954,9 +1050,9 @@ void ext_snap()
         ext_flat(INV_DIR, 110, 20);
         ext_flat(INV_DIR, 90, 20);
         ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 75, 15);
         ext_flat(INV_DIR, FAST_PASS, 10);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 75, 15);
         ext_flat(INV_DIR, 80, 20);
         ext_flat(INV_DIR, 90, 20);
         ext_flat(INV_DIR, 110, 20);
@@ -1088,105 +1184,101 @@ void ext_snap()
     }
     break;
     default:
-    {
-      resrv2 = 45;
-      ext_flat(INV_DIR, 100, 50);
-      ext_flat(INV_DIR, 1000, 250);
-      // l_turn = resrv2;//
-      for (int i = 0; i<10; i++ ) { ////20//resrv2
+    { 
+      ext_flat(INV_DIR, 300, 60);
+      ext_flat(INV_DIR, 200, 240);
+      ext_flat(INV_DIR, 6000, 200);
+      ext_flat(INV_DIR, 1000, 100);
+      ext_flat(INV_DIR, 500, 300);
+      ext_flat(INV_DIR, 400, 100);
+      ext_flat(INV_DIR, 300, 100);
+      add = 0;
+      for (int i = 0; i<1; i++ ) { 
         ext_flat(INV_DIR, TURN_PASS, 15);
         ext_flat(INV_DIR, SLOW_PASS, 10);
-        ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, 90, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, 100, 20);
         ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 70, 15);
-        ext_flat(INV_DIR, FAST_PASS, 10);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 75, 15);
+        ext_flat(INV_DIR, FAST_PASS, 5200+add);
+        ext_flat(INV_DIR, 75, 15);
         ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 90, 20);
-        ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, SLOW_PASS, 15);
-        ext_flat(INV_DIR, TURN_PASS, 10);
-
-        ext_flat(NOM_DIR, TURN_PASS, 10);
-        ext_flat(NOM_DIR, SLOW_PASS, 15);
-        ext_flat(NOM_DIR, 110, 20);
-        ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, FAST_PASS, 0);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 110, 20);
-        ext_flat(NOM_DIR, SLOW_PASS, 10);
-        ext_flat(NOM_DIR, TURN_PASS, 15);
-      }
+        ext_flat(INV_DIR, 100, 20);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, 1000, 1000+add);
+        ext_flat(NOM_DIR, 500, 4800+add);
+        ext_flat(NOM_DIR, 3000, 200+add);
+        // add+=500;
+      }     
+      resrv2 = VAL_RESRV2;  
       l_turn = resrv2;//
-      for (int i = 0; i<l_turn; i++ ) { ////20//resrv2
+      add = 0;
+      for (int i = 0; i<l_turn; i++ ) {
         ext_flat(INV_DIR, TURN_PASS, 15);
         ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, 130, 20);
         ext_flat(INV_DIR, 110, 20);
         ext_flat(INV_DIR, 90, 20);
-        ext_flat(INV_DIR, 80, 20);
-        ext_flat(INV_DIR, 70, 15);
+        ext_flat(INV_DIR, 80, 15);
         if (i == 10) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 7500);
+          add +=7500;
         }
         else if ( i == 17) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add +=500;
         }
         else if ( i == 28) {
           ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+          add += 500;
         }
-        else if ( i == 35) {
-          ext_flat(INV_DIR, FAST_PASS, 170 + 500);
-        }
+        // else if ( i == 35) {
+        //   ext_flat(INV_DIR, FAST_PASS, 170 + 500);
+        // }
         else {
           ext_flat(INV_DIR, FAST_PASS, 170);
         }
-        ext_flat(INV_DIR, 70, 15);
-        ext_flat(INV_DIR, 80, 20);
+        ext_flat(INV_DIR, 80, 15);
         ext_flat(INV_DIR, 90, 20);
         ext_flat(INV_DIR, 110, 20);
-        ext_flat(INV_DIR, SLOW_PASS, 15);
-        ext_flat(INV_DIR, TURN_PASS, 10);
-
-        ext_flat(NOM_DIR, TURN_PASS, 10);
-        ext_flat(NOM_DIR, SLOW_PASS, 15);
+        ext_flat(INV_DIR, 130, 20);
+        ext_flat(INV_DIR, SLOW_PASS, 10);
+        ext_flat(INV_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, TURN_PASS, 15);
+        ext_flat(NOM_DIR, SLOW_PASS, 10);
+        ext_flat(NOM_DIR, 130, 20);
         ext_flat(NOM_DIR, 110, 20);
         ext_flat(NOM_DIR, 90, 20);
-        ext_flat(NOM_DIR, 80, 20);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, FAST_PASS, 170);
-        ext_flat(NOM_DIR, 70, 15);
-        ext_flat(NOM_DIR, 80, 20);
+        ext_flat(NOM_DIR, 80, 15);
+        ext_flat(NOM_DIR, FAST_PASS, 170);    
+        ext_flat(NOM_DIR, 80, 15);
         ext_flat(NOM_DIR, 90, 20);
         ext_flat(NOM_DIR, 110, 20);
+        ext_flat(NOM_DIR, 130, 20);
         ext_flat(NOM_DIR, SLOW_PASS, 10);
         ext_flat(NOM_DIR, TURN_PASS, 15);
-      }
-      ext_flat(NOM_DIR, 200,8700);//8900
+      } 
+      ext_flat(NOM_DIR, 200,add - 150);//8900
       ext_flat(NOM_DIR, 300,300);
-      ext_flat(NOM_DIR, 100*27,100);//resrv3 23
-
-      ext_flat(INV_DIR, 300, 12);        
-      ext_flat(INV_DIR, 250, 12);
+      resrv3 = VAL_RESRV3;
+      ext_flat(NOM_DIR, 100*resrv3,100); 
+      ext_flat(INV_DIR, 350, 12);        
+      ext_flat(INV_DIR, 300, 12);
+      ext_flat(INV_DIR, 250, 10);
       ext_flat(INV_DIR, 200, 10);
-      ext_flat(INV_DIR, 170, 10);
-      ext_flat(INV_DIR, 120, 10);
-      ext_flat(INV_DIR, 100, 15);
-      ext_flat(INV_DIR, 80, 20);
-      ext_flat(INV_DIR, 70, 30);
-      ext_flat(INV_DIR, 60, 50);
-      ext_flat(INV_DIR, 50, 70);
-      ext_flat(INV_DIR, 45, 60);
-      ext_flat(INV_DIR, 45, 39000);
-
+      ext_flat(INV_DIR, 150, 10);
+      ext_flat(INV_DIR, 120, 15);
+      ext_flat(INV_DIR, 90, 20);
+      ext_flat(INV_DIR, 80, 30);
+      ext_flat(INV_DIR, 70, 50);
+      ext_flat(INV_DIR, 60, 70);
+      ext_flat(INV_DIR, 50, 60);
+      ext_flat(INV_DIR, 45, 39000);  
       pitta_set_temp((temp_temp_extruder), 0);   
       ext_flat(INV_DIR, 45/* +pitta_extrude_return_spd */, 20000);//
       ext_flat(INV_DIR, 60/* +pitta_extrude_return_spd */, 10000);//  
-
     }
     break;
   }
