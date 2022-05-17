@@ -128,5 +128,5 @@ HAS_PITTA_MMU = src_filter=+<src/feature/pitta/pitta.cpp>
 7. If you are uploading from the original firmware or other source, please restore defaults from LCD menu.
 
 ## Upload firmware to LCD of Ender-3 V2
-If you have uploaded the firmware of Ender-3 V2, you must also upload the display firmware of the LCD for Ender-3 V2. You will find the instruction to upload and upload the DWIN_SET form [Configurations](https://github.com/Stellamove/Configurations/tree/master/config/examples/Creality/Ender-3%20V2).
+If you have uploaded the firmware of Ender-3 V2, you must also upload the display firmware of the LCD for Ender-3 V2. You will find the instruction to upload and upload the DWIN_SET form [LCD_Files](https://github.com/Stellamove/LCD_Files/tree/master/Ender-3%20V2).
 
