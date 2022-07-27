@@ -1843,6 +1843,7 @@ void DWIN_Startup() {
   DWINUI::onCursorErase = Erase_Menu_Cursor;
   DWINUI::onTitleDraw = Draw_Title;
   DWINUI::onMenuDraw = Draw_Menu;
+  DWIN_JPG_ShowAndCache(3);  // Ender-3 V2 LCD Test
   HMI_SetLanguage();
 }
 
@@ -1929,10 +1930,11 @@ void MarlinUI::kill_screen(FSTR_P const lcd_error, FSTR_P const lcd_component) {
 
 void DWIN_RebootScreen() {
   DWIN_Frame_Clear(Color_Bg_Black);
-  DWINUI::Draw_Icon(ICON_LOGO, 71, 150);  // CREALITY logo
+  DWIN_JPG_ShowAndCache(0);  // Ender-3 V2 LCD Test
   DWINUI::Draw_CenteredString(Color_White, 200, F("Please wait until reboot."));
   DWIN_UpdateLCD();
   delay(500);
+  DWIN_JPG_ShowAndCache(3);
 }
 
 void DWIN_Redraw_screen() {
